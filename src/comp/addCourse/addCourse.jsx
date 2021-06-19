@@ -17,15 +17,24 @@ class AddCourse extends Component {
     render() { 
         return ( 
             <>
-            <form className="border" onSubmit={this.submitForm}>
-                <input type="text" 
-                    id='name' 
-                    name='name' 
-                    onChange={this.handleChange}
-                    value={this.state.name}/>
+                <form className="input-group input-group-sm row" onSubmit={this.submitForm}>
+                        {/* <label htmlFor="name">Add Course</label> */}
+                        <div className="input-group-prepend col" >
+                            <span className="input-group-text">
 
-                <button>Add Course</button>
-            </form>
+                                <input type="text" 
+                                    id='name' 
+                                    name='name' 
+                                    className='col'
+                                    onChange={this.handleChange}
+                                    value={this.state.name}/>
+                            </span>
+                        </div>
+
+                        <div className="buttons btn-group  col">
+                            <button  className='btn btn-success'>Add Course</button>
+                        </div>
+                </form>
             </>
          );
     }

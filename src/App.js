@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import './App.css';
-// import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import AddCourse from './comp/addCourse/addCourse';
 import CourseItem from './comp/addCourse/courseItem/courseItem';
 
@@ -16,7 +16,6 @@ class App extends Component {
         {id: 5, name:'Html'},
         {id: 6, name:'Css'},
         {id: 7, name:'React'}
-
     ]
 }
 addCourse = (c) =>{
@@ -41,20 +40,25 @@ addCourse = (c) =>{
   }
   render() { 
     return (     
-    <div className="App container">
+    <div className="container">
         <header className="App-header">
           <h2>Courses List</h2>
-          <ul>
-            {this.state.courses.map( c=> <CourseItem  
-              key={c.id}
-              course={c}
-              updateCourse={this.updateCourse}
-              deleteCourse={this.deleteCourse}/>
-              )}
-            
-          </ul>
+        </header>    
+        <div className='App'>
           <AddCourse addCourse={this.addCourse} />
-        </header>
+          <hr />
+          <ul className="list-group">
+              {this.state.courses.map( c=> <CourseItem  
+                key={c.id}
+                course={c}
+                updateCourse={this.updateCourse}
+                deleteCourse={this.deleteCourse}/>
+                )}
+              
+            </ul>
+                      
+        </div>
+
     </div> 
   );
   }

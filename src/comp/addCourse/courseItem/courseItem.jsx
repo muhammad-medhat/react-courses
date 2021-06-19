@@ -25,21 +25,23 @@ class CourseItem extends Component {
 
         return ( 
             <>
-            <li>
-                <span>
-                    {this.props.course.name}
-                </span>
-                <button  className='text-primary' onClick={this.toggleEdit}>
-                    <p style={{cursor: 'pointer'}}>
-                        Edit 
-                    </p> 
-                </button>
-                <button  className='text-danger' onClick={()=>deleteCourse(this.props.course.id)}>
-                    <p style={{cursor: 'pointer'}}>
-                        Delete  
-                    </p> 
-                </button>
+            <li className="list-group-item">
+                <div className="input-group input-group-sm row">
 
+                    <div className="input-group-prepend col" >
+                        <span className="input-group-text">{this.props.course.name}</span>
+                    </div>
+
+                    <div className="buttons btn-group  col">
+                        <button  className='btn btn-primary' onClick={this.toggleEdit}>
+                                Edit 
+                        </button>
+                        <button  className='btn btn-danger' onClick={()=>deleteCourse(this.props.course.id)}>
+                                Delete  
+                        </button>                        
+                    </div>
+
+                </div>
             </li>
             </>
         )
@@ -48,16 +50,27 @@ class CourseItem extends Component {
     renderEdit = () =>{
         console.log('props',this.props);
         return(
-            <form onSubmit={this.submitForm}>
-                <input type="text" 
-                    id='name' 
-                    name='name' 
-                    ref={r=>this.input=r}
-                    onChange={this.handleChange}
-                    defaultValue={this.state.name}/>
+            <li className="list-group-item">
+                <form className="input-group input-group-sm row" onSubmit={this.submitForm}>
+                {/* <input type="text" className="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"> */}
+                <div className="input-group-prepend col">
 
-                <button type='submit'>Update Course</button>
-            </form>
+                        <span className="input-group-text">
+                            <input type="text" 
+                                id='name' 
+                                name='name' 
+                                className='col'
+                                ref={r=>this.input=r}
+                                onChange={this.handleChange}
+                                defaultValue={this.state.name}/>
+                        </span>
+                    </div>
+                    <div className="input-group-prepend col" >
+
+                        <button type='submit' className='btn btn-info w-50'>Update Course</button>
+                    </div>
+                </form>
+            </li>
         )}
 toggleEdit = ()=>{
     this.setState({isEdit: !this.state.isEdit})
