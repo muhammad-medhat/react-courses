@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import './addCourese.css'
 class AddCourse extends Component {
-    state = { name: '' }
+    state = { course_name: '' }
     handleChange = (e) =>{
         // console.log(e);
         this.setState({
             [e.target.id]: e.target.value
         })
-        console.log(this.state)
+        // console.log('state:', this.state)
     }
     submitForm = (e)=>{
         e.preventDefault()
         this.props.addCourse(this.state)
-        this.setState({name:''})
+        this.setState({course_name: ''})
     }
     render() { 
         return ( 
@@ -23,11 +23,11 @@ class AddCourse extends Component {
                             <span className="input-group-text">
 
                                 <input type="text" 
-                                    id='name' 
-                                    name='name' 
+                                    id='course_name' 
+                                    name='course_name' 
                                     className='col'
                                     onChange={this.handleChange}
-                                    value={this.state.name}/>
+                                    value={this.state.course_name}/>
                             </span>
                         </div>
 

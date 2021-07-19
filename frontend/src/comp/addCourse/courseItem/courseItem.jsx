@@ -3,7 +3,7 @@ class CourseItem extends Component {
     state = { 
         isEdit: false,
         id: this.props.course.id,
-        name: this.props.course.name
+        course_name: this.props.course.course_name
     }
     handleChange = (e) =>{
         // console.log(e);
@@ -20,6 +20,7 @@ class CourseItem extends Component {
         this.toggleEdit()
         // this.setState({name:''})
     }
+
     renderCourse = ()=>{    
         const {deleteCourse} = this.props
 
@@ -29,7 +30,7 @@ class CourseItem extends Component {
                 <div className="input-group input-group-sm row">
 
                     <div className="input-group-prepend col" >
-                        <span className="input-group-text">{this.props.course.name}</span>
+                        <span className="input-group-text">{this.props.course.course_name}</span>
                     </div>
 
                     <div className="buttons btn-group  col">
@@ -48,7 +49,7 @@ class CourseItem extends Component {
     }
 
     renderEdit = () =>{
-        console.log('props',this.props);
+        // console.log('props',this.props);
         return(
             <li className="list-group-item">
                 <form className="input-group input-group-sm row" onSubmit={this.submitForm}>
@@ -62,19 +63,22 @@ class CourseItem extends Component {
                                 className='col'
                                 ref={r=>this.input=r}
                                 onChange={this.handleChange}
-                                defaultValue={this.state.name}/>
+                                defaultValue={this.state.course_name}/>
                         </span>
                     </div>
                     <div className="input-group-prepend col" >
-
                         <button type='submit' className='btn btn-info w-50'>Update Course</button>
                     </div>
                 </form>
             </li>
-        )}
-toggleEdit = ()=>{
-    this.setState({isEdit: !this.state.isEdit})
-}
+    )}
+
+        toggleEdit = ()=>{
+            this.setState({isEdit: !this.state.isEdit})
+        }
+
+
+
     render() { 
         return(
             <>
