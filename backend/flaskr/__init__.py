@@ -12,7 +12,7 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     setup_db(app)
-    QUETSIONS_PER_PAGE = 10
+    PER_PAGE = 300
     '''
     @TODO: #? Set up CORS. Allow '*' for origins.
             #? Delete the sample route after completing the TODOs
@@ -47,15 +47,15 @@ def create_app(test_config=None):
             [dictionary]: [a slice from the whole results]
         """
         page = req.args.get('page', 1, type=int)
-        start = (page-1)*QUETSIONS_PER_PAGE
-        end = start+QUETSIONS_PER_PAGE
+        start = (page-1) * PER_PAGE
+        end = start + PER_PAGE
         return selection[start:end]
 
 
     @app.route('/')
     def index():
-        Course.get_items()
-        return 'ddd'
+        # Course.get_items()
+        return '<h1>Courses App</h1>'
     
     @app.route('/categories', methods=['GET'])
     def get_request_categories():
@@ -71,18 +71,23 @@ def create_app(test_config=None):
     def get_paginated_courses():        
         courses = Course.get_items()     
         formated_courses = [q.format() for q in courses]
+        # print(request)
+        # print(len(formated_courses))
         display = paginate(request, formated_courses)
+        # display = formated_courses
         if len(display) == 0:
             abort(404)
         else:
             current_category = '## IMPLEMENT CRRENT CATEGORY ##'
             return jsonify({
+                'count': len(display),
                 "courses": display
             })
 
+
     @app.route('/courses/<int:course_id>', methods=['DELETE'])
     def delete_course(course_id):
-        print(f'==========  DELETE {course_id}===================')
+        print(f'==========  DELETE {course_id} ===================')
 
         try:
             q = Course.query.filter(Course.id == course_id).one_or_none()
@@ -117,10 +122,6 @@ def create_app(test_config=None):
                 abort(404)
         else:
             abort(400)
-
-
-
-    
 
     @app.route('/courses/<int:course_id>', methods=['GET'])
     def get_specific_course(course_id):

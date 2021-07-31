@@ -13,6 +13,9 @@ class CourseItem extends Component {
         console.log('new state', this.state )
         // console.log(e)
     }
+    cancelEdit =(e)=>{
+        this.toggleEdit()
+    }
     submitForm = (e)=>{
         e.preventDefault()
         console.log('form submit...');
@@ -68,6 +71,7 @@ class CourseItem extends Component {
                     </div>
                     <div className="input-group-prepend col" >
                         <button type='submit' className='btn btn-info w-50'>Update Course</button>
+                        <button type='reset' className='btn btn-warning w-50' onClick={this.cancelEdit}>Cancel</button>
                     </div>
                 </form>
             </li>

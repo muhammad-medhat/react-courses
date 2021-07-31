@@ -1,16 +1,23 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+//import React, { useState, useMemo ,Component } from 'react';
 // import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import AddCourse from './comp/addCourse/addCourse';
-import CourseItem from './comp/addCourse/courseItem/courseItem';
+import CourseItem from './comp/courseItem/courseItem';
+import CoursesList from './comp/coursesList/coursesList';
+// import Pagination from './comp/pagination/Pagination';
 
+// let PageSize = 10;
+// const [pages, setPages] = useState(1)
 
 
 class App extends Component {
+  //const [currentPage, setCurrentPage] = useState(1);
+
   state = { 
     courses:[
           // {id: 1, name:'Python'},
@@ -22,10 +29,11 @@ class App extends Component {
           // {id: 7, name:'React'}
     ]
 }
+
 APIURL='http://127.0.0.1:5000/courses'
     async componentDidMount(){
         const {data}  = await axios.get(this.APIURL)
-        console.log('get request', data);
+        // console.log('get request', data);
         // this.setState({courses: {...data}})
         this.setState({courses: [...data['courses']]})
     }
@@ -75,6 +83,8 @@ addCourse = (c) =>{
       //Call B
       const obj = c
       await axios.patch( `${this.APIURL}/${c.id}`, obj );
+      toast(`Updated to ${c.course_name}`)
+      console.log(`Updated to ${c.course_name}`)
     } catch (ex) {
       toast("Cant update")
     } 
@@ -90,8 +100,9 @@ addCourse = (c) =>{
   }
 
   render() { 
-    console.log('state -> courses :', this.state.courses)
-    console.log('state -> fcourses :', this.state.fcourses)
+    // console.log('state -> courses :', this.state.courses)
+    // console.log('state -> fcourses :', this.state.fcourses)
+
     // console.log('state -> courses :', typeof(this.state.courses))
     // console.log('state -> fcourses :', typeof(this.state.fcourses))
     return (     
@@ -101,17 +112,30 @@ addCourse = (c) =>{
         </header>    
         <div className='App'>
           <AddCourse addCourse={this.addCourse} />
+          <CoursesList 
+            coursesList={this.state.courses}
+            update={this.updateCourse}
+            deleteC={this.deleteCourse}
+          />
           <hr />
           <ul className="list-group">
-              {this.state.courses.map( c=> <CourseItem  
+              {/* {this.state.courses.map( c=> <CourseItem  
                 key={c.id}
                 course={c}
                 updateCourse={this.updateCourse}
                 deleteCourse={this.deleteCourse}/>
-                )}
+                )} */}
               
             </ul>
-                      
+
+            {/* <Pagination
+              className="pagination-bar"
+              currentPage={currentPage}
+              totalCount={data.length}
+              pageSize={PageSize}
+              onPageChange={page => setCurrentPage(page)}
+            />
+                       */}
         </div>
 
     </div> 
